@@ -2,17 +2,17 @@
 pragma solidity ^0.8.13;
 
 import {Script, console} from "forge-std/Script.sol";
-import {NFTFactory} from "../src/NFTFactory.sol";
+import {NFTCollection} from "../src/NFTCollection.sol";
 
 contract CounterScript is Script {
-    NFTFactory public factory;
+    NFTCollection public collection;
 
     function setUp() public {}
 
     function run() public {
         vm.startBroadcast();
-
-        factory = new NFTFactory();
+        
+        collection = new NFTCollection('Notion', 'N', 'ipfs://bafybeigdiro5gj4nqujsyqxpvkp33e64ymla7di2ccdknibm3uqv6z6eae/', msg.sender);
 
         vm.stopBroadcast();
     }
