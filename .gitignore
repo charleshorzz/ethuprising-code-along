@@ -1,3 +1,4 @@
 contract/.env
 contract/cache/
 contract/out/
+.env

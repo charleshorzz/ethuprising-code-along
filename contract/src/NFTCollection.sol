@@ -8,6 +8,8 @@ contract NFTCollection is ERC721URIStorage, Ownable {
     uint256 private _nextTokenId;
     string private _baseTokenURI;
 
+    event NFTMinted(address indexed recipient, uint256 tokenId, string metadataCID);
+
     constructor(
         string memory name, 
         string memory symbol, 
@@ -18,9 +20,11 @@ contract NFTCollection is ERC721URIStorage, Ownable {
         transferOwnership(creator);
     }
 
-    function mintNFT(address recipient, string memory metadataCID) public onlyOwner {
+    function mintNFT(address _recipient, string memory _metadataCID) public onlyOwner {
         uint256 tokenId = _nextTokenId++;
-        _mint(recipient, tokenId);
-        _setTokenURI(tokenId, string(abi.encodePacked(_baseTokenURI, metadataCID)));
+        _mint(_recipient, tokenId);
+        _setTokenURI(tokenId, string(abi.encodePacked(_baseTokenURI, _metadataCID, ".json")));
+
+        emit NFTMinted(_recipient, tokenId, _metadataCID);
     }
 }

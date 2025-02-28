@@ -23,20 +23,20 @@ contract NFTFactory {
     );
 
     function createNFTCollection(
-        string memory name, 
-        string memory symbol, 
-        string memory baseURI
+        string memory _name, 
+        string memory _symbol, 
+        string memory _baseURI
     ) public {
-        NFTCollection newCollection = new NFTCollection(name, symbol, baseURI, msg.sender);
+        NFTCollection newCollection = new NFTCollection(_name, _symbol, _baseURI, msg.sender);
         collections.push(CollectionInfo({
             collectionAddress: address(newCollection),
-            name: name,
-            symbol: symbol,
-            baseURI: baseURI,
+            name: _name,
+            symbol: _symbol,
+            baseURI: _baseURI,
             creator: msg.sender
         }));
 
-        emit CollectionCreated(address(newCollection), msg.sender, name, symbol, baseURI);
+        emit CollectionCreated(address(newCollection), msg.sender, _name, _symbol, _baseURI);
     }
 
     function getAllCollections() public view returns (CollectionInfo[] memory) {
