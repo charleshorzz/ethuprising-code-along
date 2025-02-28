@@ -5,45 +5,35 @@ import {Test, console} from "forge-std/Test.sol";
 import {NFTFactory} from "../src/NFTFactory.sol";
 
 contract NFTFactoryTest is Test {
-    // NFTFactory public factory;
+    NFTFactory public factory;
 
-    // // Random address
-    // address user1 = 0xc48Cdea7CeE68648De69eAf7d1605aD98b15b13E;
-    // address recipient = 0x53D5f6e9255320451B273Cbd5EBe1021acEC7E3b;
-    // string nftFolderURI = 'ipfs://bafybeigdiro5gj4nqujsyqxpvkp33e64ymla7di2ccdknibm3uqv6z6eae/';
+    // Random address
+    address user1 = 0xc48Cdea7CeE68648De69eAf7d1605aD98b15b13E;
+    string name = 'Notion Faces';
+    string symbol = 'NF';
+    string baseURI = 'ipfs://xxxxxx/';
 
-    // function setUp() public {
-    //     collection = new NFTCollection('Notion Faces', 'NF', nftFolderURI, user1);
-    // }
+    function setUp() public {
+        factory = new NFTFactory();
+    }
 
-    // function test_Mint() public {
-    //     vm.prank(user1);
-    //     collection.mintNFT(recipient, "1");
-    //     // Token ID should be 0 since it's the first NFT minted
-    //     uint256 tokenId = 0;
+    function test_Create_NFT_Collection() public {
+        // Act as user 1
+        vm.prank(user1);
+        factory.createNFTCollection(name, symbol, baseURI);
+        // Get all collections
+        NFTFactory.CollectionInfo[] memory collections = factory.getAllCollections();
 
-    //     // Check if recipient owns the NFT
-    //     assertEq(collection.ownerOf(tokenId), recipient);
-    // }
+        // Ensure one collection was created
+        assertEq(collections.length, 1);
+
+        // Verify details of the created collection
+        assertEq(collections[0].name, name);
+        assertEq(collections[0].symbol, symbol);
+        assertEq(collections[0].baseURI, baseURI);
+        assertEq(collections[0].creator, user1);
+
+        // Ensure the contract address is not zero (indicating it was deployed)
+        assertTrue(collections[0].collectionAddress != address(0));
+    }
 }
-
-    // function createNFTCollection(
-    //     string memory _name, 
-    //     string memory _symbol, 
-    //     string memory _baseURI
-    // ) public {
-    //     NFTCollection newCollection = new NFTCollection(_name, _symbol, _baseURI, msg.sender);
-    //     collections.push(CollectionInfo({
-    //         collectionAddress: address(newCollection),
-    //         name: _name,
-    //         symbol: _symbol,
-    //         baseURI: _baseURI,
-    //         creator: msg.sender
-    //     }));
-
-    //     emit CollectionCreated(address(newCollection), msg.sender, _name, _symbol, _baseURI);
-    // }
-
-    // function getAllCollections() public view returns (CollectionInfo[] memory) {
-    //     return collections;
-    // }
