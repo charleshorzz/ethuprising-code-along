@@ -2,6 +2,32 @@
 
 Welcome to the ETHUprising Code-Along! In this session, we’ll dive into The Graph, a decentralized indexing protocol that enables fast and efficient querying of blockchain data.
 
+## Prerequisites
+
+Before starting the workshop, ensure you have the following set up:
+
+1. **Foundry Installed & Running**
+- Install [Foundry](https://book.getfoundry.sh/getting-started/installation) if you haven't already.
+- Verify it's working by running:
+
+```sh
+forge --version
+```
+
+2. **Git Installed**
+- Download and install [Git](https://git-scm.com/downloads) if needed.
+- Verify installation:
+
+```sh
+git --version
+```
+
+3. **A Folder with at Least One Image**
+- Prepare a folder containing at least one image.
+- It is highly recommend you generate a few using [Notion Faces](https://faces.notion.com/).
+
+Once you have these set up, you're ready to proceed with the workshop!
+
 ## 🛠️ What You’ll Learn
 
 By the end of this session, you will:
@@ -15,6 +41,36 @@ By the end of this session, you will:
 ### [NFTCollection Contract](./contract/src/NFTCollection.sol)
 
 This contract **creates and manages an NFT collection**. Each instance of `NFTCollection` represents a unique set of NFTs that can be monted and owned.
+
+#### 🔹 Summary of What This Contract Does
+
+1. Creates an NFT collection with a name, symbol, and metadata base URL.
+2. Allows only the owner (creator) to mint new NFTs.
+3. Automatically assigns a unique ID to each NFT.
+4. Links each NFT to metadata stored off-chain (e.g., on IPFS).
+5. Emits an event every time an NFT is minted for easy tracking.
+
+This contract is used by `NFTFactory` to generate and manage NFT collections dynamically!
+
+#### 🌟 Example Use Case
+
+Let’s say Erica deploys an NFT collection with this contract:
+
+```solidity
+new NFTCollection("Cool Art", "CART", "https://ipfs.io/ipfs/Qm123/", msg.sender);
+```
+
+Now Erica can mint an NFT like this:
+
+```solidity
+mintNFT(0xRecipientAddress, "QmNFTMetadataCID");
+```
+
+This will create an NFT with metadata stored at:
+
+```
+https://ipfs.io/ipfs/Qm123/QmNFTMetadataCID.json
+```
 
 Here's the breakdown of each important code snippet:
 
@@ -133,36 +189,6 @@ emit NFTMinted(_recipient, tokenId, _metadataCID);
 ```
 
 - This logs the minting event on the blockchain, making it easy to track NFT creation.
-
-#### 🔹 Summary of What This Contract Does
-
-1. Creates an NFT collection with a name, symbol, and metadata base URL.
-2. Allows only the owner (creator) to mint new NFTs.
-3. Automatically assigns a unique ID to each NFT.
-4. Links each NFT to metadata stored off-chain (e.g., on IPFS).
-5. Emits an event every time an NFT is minted for easy tracking.
-
-This contract is used by `NFTFactory` to generate and manage NFT collections dynamically!
-
-#### 🌟 Example Use Case
-
-Let’s say Erica deploys an NFT collection with this contract:
-
-```solidity
-new NFTCollection("Cool Art", "CART", "https://ipfs.io/ipfs/Qm123/", msg.sender);
-```
-
-Now Erica can mint an NFT like this:
-
-```solidity
-mintNFT(0xRecipientAddress, "QmNFTMetadataCID");
-```
-
-This will create an NFT with metadata stored at:
-
-```
-https://ipfs.io/ipfs/Qm123/QmNFTMetadataCID.json
-```
 
 ### [NFTFactory Contract](./contract/src/NFTFactory.sol)
 
@@ -300,6 +326,9 @@ function getAllCollections() public view returns (CollectionInfo[] memory) {
 5. Provides a function to retrieve all collections for easy access.
 
 This contract makes it super easy for anyone to launch an NFT collection without writing complex smart contracts!
+
+## :small_airplane: Getting Started
+
 
 ## Tracking Multiple Contracts
 
