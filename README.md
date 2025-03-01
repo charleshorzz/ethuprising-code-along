@@ -36,6 +36,59 @@ By the end of this session, you will:
 - Track multiple contracts within a single subgraph
 - Implement dynamic data tracking with subgraph templates
 
+## :small_airplane: Getting Started
+
+Follow these steps to prepare your metadata:
+
+1. Upload Your Images & Get the CID
+- Visit this [website](https://ipfs-uploader-eosin.vercel.app).
+- Upload your images one by one.
+- After each upload, record the CID (Content Identifier) for later use.
+
+2. Create Your Metadata File
+- Create a folder.
+- Based on the `x` number of images uploaded, create `x` amount of JSON files (e.g. `image-1.json`).
+- Edit each individual JSON file, and copy the following JSON template and replace the placeholders:
+
+```json
+{
+  "name": "<NAME>",
+  "description": "<DESCRIPTION>",
+  "image": "ipfs://<CID>",
+  "attributes": [
+    { "trait_type": "Background", "value": "<COLOR>" },
+    { "trait_type": "Rarity", "value": "<RARITY>" }
+  ]
+}
+```
+
+3. Replace The Placeholders
+- `NAME`: Set a name for your NFT
+- `DESCRIPTION`: Provide a short description
+- `CID`: Paste the CID from your uploaded image
+- `COLOR`: The "background" attribute's color (e.g. "Blue", "Yellow")
+- `RARITY`: The "rarity" attribute of the NFT (e.g. "Common", "Rare")
+
+> [!NOTE]
+> Both `COLOR` and `RARITY` attributes are for cosmetic only, any value they have won't affect the final outcome.
+
+4. Saving The Files
+- Create a new folder.
+- Save the JSON files in the created folder.
+
+5. Upload Your Metadata Folder
+- Go back to the [upload website](https://ipfs-uploader-eosin.vercel.app/).
+- This time, upload the **entire folder** containing your JSON files.
+- After the upload, record the new CID assigned to your folder.
+
+> [!IMPORTANT]
+> You are unable to proceed if you did not upload the **entire folder** at once.
+
+6. Your Metadata CID
+- You will receive a new CID.
+- The new CID represents the folder containing all your metadata files.
+- You will use this CID in the next steps of the workshop.
+
 ## Explaining The Contracts
 
 ### [NFTCollection Contract](./contract/src/NFTCollection.sol)
@@ -194,6 +247,14 @@ emit NFTMinted(_recipient, tokenId, _metadataCID);
 
 This contract creates and stores NFT collections. Think of it like a factory that produces NFT collections on demand.
 
+#### 🔹 Summary of What This Contract Does
+
+1. Allows users to create new NFT collections by calling `createNFTCollection()`.
+2. Deploys a new instance of `NFTCollection.sol` each time.
+3. Stores the collection’s details in an array.
+4. Emits an event so blockchain explorers can track new collections.
+5. Provides a function to retrieve all collections for easy access.
+
 Here's the breakdown of each important code snippet:
 
 #### 1️⃣ Importing NFTCollection.sol
@@ -317,18 +378,7 @@ function getAllCollections() public view returns (CollectionInfo[] memory) {
 - It is public and view, meaning it does not modify blockchain data, just reads it.
 - Useful for front-end apps that want to display all NFT collections.
 
-#### 🔹 Summary of What This Contract Does
-
-1. Allows users to create new NFT collections by calling `createNFTCollection()`.
-2. Deploys a new instance of `NFTCollection.sol` each time.
-3. Stores the collection’s details in an array.
-4. Emits an event so blockchain explorers can track new collections.
-5. Provides a function to retrieve all collections for easy access.
-
 This contract makes it super easy for anyone to launch an NFT collection without writing complex smart contracts!
-
-## :small_airplane: Getting Started
-
 
 ## Tracking Multiple Contracts
 
