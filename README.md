@@ -40,12 +40,12 @@ By the end of this session, you will:
 
 Follow these steps to prepare your metadata:
 
-1. Upload Your Images & Get the CID
+### 1. Upload Your Images & Get the CID
 - Visit this [website](https://ipfs-uploader-eosin.vercel.app).
 - Upload your images one by one.
 - After each upload, record the CID (Content Identifier) for later use.
 
-2. Create Your Metadata File
+### 2. Create Your Metadata File
 - Create a folder.
 - Based on the `x` number of images uploaded, create `x` amount of JSON files (e.g. `image-1.json`).
 - Edit each individual JSON file, and copy the following JSON template and replace the placeholders:
@@ -62,7 +62,7 @@ Follow these steps to prepare your metadata:
 }
 ```
 
-3. Replace The Placeholders
+### 3. Replace The Placeholders
 - `NAME`: Set a name for your NFT
 - `DESCRIPTION`: Provide a short description
 - `CID`: Paste the CID from your uploaded image
@@ -72,11 +72,11 @@ Follow these steps to prepare your metadata:
 > [!NOTE]
 > Both `COLOR` and `RARITY` attributes are for cosmetic only, any value they have won't affect the final outcome.
 
-4. Saving The Files
+### 4. Saving The Files
 - Create a new folder.
 - Save the JSON files in the created folder.
 
-5. Upload Your Metadata Folder
+### 5. Upload Your Metadata Folder
 - Go back to the [upload website](https://ipfs-uploader-eosin.vercel.app/).
 - This time, upload the **entire folder** containing your JSON files.
 - After the upload, record the new CID assigned to your folder.
@@ -84,10 +84,50 @@ Follow these steps to prepare your metadata:
 > [!IMPORTANT]
 > You are unable to proceed if you did not upload the **entire folder** at once.
 
-6. Your Metadata CID
+### 6. Your Metadata CID
 - You will receive a new CID.
 - The new CID represents the folder containing all your metadata files.
 - You will use this CID in the next steps of the workshop.
+
+### 7. Deploy Your NFT Collection
+- Go to [ScrollScan](https://sepolia.scrollscan.com/) or navigate to **your own deployed contract**.
+- Click on the "Contracts" tab.
+- Select "Write Contract" to interact with the contract.
+
+### 8. Call `createNFTCollection`
+- Locate the `createNFTCollection` function.
+- Enter the following parameters:
+  - Name → Can be anything (e.g., `"My NFT Collection"`).
+  - Symbol → A short identifier (e.g., `"MNFT"`).
+  - BaseURI → The CID from your **metadata** folder
+- Example input:
+
+```vbnet
+Name: "Cool Avatars"
+Symbol: "CAV"
+BaseURI: "<YOUR_METADATA_FOLDER_CID>"
+```
+- Click "Write" to execute the transaction.
+
+### 9. Find Your Deployed NFT Collection
+- After executing `createNFTCollection`, locate the **Transaction Hash** in the confirmation details.
+- Click on the **Transaction Hash** to view the transaction details on ScrollScan.
+- In the transaction details, find the `NFTCollection` contract address (this is where your NFTs will be minted).
+
+### 10. Mint Your First NFT
+- Go to your `NFTCollection` contract on ScrollScan.
+- Click on the "Contracts" tab and select "Write Contract".
+- Find the `mintNFT` function and enter:
+  - Recipient Address → Your wallet address (or another recipient's address).
+  - MetadataCID → The name of your `metadata` file (e.g., `"metadata.json"`).
+- Example input:
+
+```vbnet
+Recipient Address: 0xYourWalletAddress
+MetadataCID: "metadata.json"
+```
+
+- Click "Write" to execute the transaction and mint your NFT!
 
 ## Explaining The Contracts
 
