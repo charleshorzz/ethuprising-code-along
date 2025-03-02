@@ -1,0 +1,9 @@
+{
+  "name": "Rare Profile Picture",
+  "description": "Rare Profile Picture made with Notion",
+  "image": "ipfs://bafybeiau4n6oburj3diurlh5dl5mybnsyjnp7kltxdznszlciqo3woa7h4",
+  "attributes": [
+    { "trait_type": "Background", "value": "Blue" },
+    { "trait_type": "Rarity", "value": "Rare" }
+  ]
+}

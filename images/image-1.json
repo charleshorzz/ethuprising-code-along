@@ -1,0 +1,9 @@
+{
+  "name": "Common Profile Picture",
+  "description": "Common Profile Picture made with Notion",
+  "image": "ipfs://bafybeihy4n6idiqao7uuvaho5uw7stexvlnynbpnx5qnj6lo6g7y4jguga",
+  "attributes": [
+    { "trait_type": "Background", "value": "Yellow" },
+    { "trait_type": "Rarity", "value": "Common" }
+  ]
+}
