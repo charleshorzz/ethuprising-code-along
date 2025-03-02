@@ -422,12 +422,4 @@ This contract makes it super easy for anyone to launch an NFT collection without
 
 ## Tracking Multiple Contracts
 
-### 1. Smart Contract Explanation
-
-### 2. Smart Contract Explanation
-
 ## Dynamic Contract Tracking
-
-### 1. Smart Contract Explanation
-
-### 2. Smart Contract Explanation
